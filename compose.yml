@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  melo-converter:
+    build: .
+    container_name: melo-converter
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - ./downloads:/app/downloads
+    restart: unless-stopped

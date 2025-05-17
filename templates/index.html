@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Convertisseur YouTube · MeLo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='theme.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='spotlight.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='interaction.js') }}"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="centered">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-wrapper">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <div class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
+        <i data-lucide="sun" class="icon" id="theme-icon"></i>
+    </div>
+
+    <div class="logo-mark" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="45" stroke="url(#grad)" stroke-width="6" />
+            <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-size="24" fill="url(#grad)"
+                font-family="sans-serif">M</text>
+            <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#60a5fa" />
+                    <stop offset="100%" stop-color="#c084fc" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <main>
+        <h1 class="title">Convertisseur YouTube <span class="subtitle">par MeLo</span></h1>
+
+        <form method="post" action="/convert">
+            <div id="preview" class="yt-preview hidden">
+                <img id="yt-thumb" src="" alt="Miniature YouTube" />
+                <h2 id="yt-title"></h2>
+            </div>
+
+            <input type="url" name="youtube_url" id="youtube_url" placeholder="Collez un lien YouTube ici..." required
+                autocomplete="off">
+
+            <div class="options">
+                <label><input type="radio" name="format" value="mp3" checked> MP3</label>
+                <label><input type="radio" name="format" value="mp4"> MP4</label>
+            </div>
+
+            <button type="submit"><i data-lucide="download"></i> Convertir</button>
+        </form>
+
+        <div class="progress-container hidden" id="progressBar">
+            <div class="progress-bar"></div>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

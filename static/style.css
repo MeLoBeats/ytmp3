@@ -1,0 +1,342 @@
+/* Root Variables */
+:root {
+    --x: 50%;
+    --y: 50%;
+    --spotlight-visible: 0;
+    --spotlight-size: 400px;
+
+    --bg-light: linear-gradient(-45deg, #fceff9, #e6f2ff, #fef7ff, #e1ecfa);
+    --bg-dark: linear-gradient(-45deg, #0f172a, #1e1b2e, #191825, #1f1d2e);
+
+    --text-light: #1f2937;
+    --text-dark: #f8fafc;
+
+    --primary: #3b82f6;
+    --spotlight-color-light: rgba(96, 165, 250, 0.4);
+    --spotlight-color-dark: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="light"] {
+    --bg: var(--bg-light);
+    --text: var(--text-light);
+    --spotlight-color: var(--spotlight-color-light);
+}
+
+[data-theme="dark"] {
+    --bg: var(--bg-dark);
+    --text: var(--text-dark);
+    --spotlight-color: var(--spotlight-color-dark);
+}
+
+/* Global styles */
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    background-size: 400% 400%;
+    animation: gradientShift 25s ease infinite;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.4s, color 0.4s;
+}
+
+body.centered main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+}
+
+body:not(.centered) main {
+    position: static;
+    transform: none;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    width: var(--spotlight-size);
+    height: var(--spotlight-size);
+    background: radial-gradient(circle, var(--spotlight-color), transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    opacity: var(--spotlight-visible);
+    transition: opacity 0.3s ease, top 0.1s, left 0.1s;
+    z-index: 0;
+}
+
+/* Main Container */
+main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+/* Logo mark */
+.logo-mark {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    opacity: 0.9;
+    animation: pulse 5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Input */
+input[type="url"] {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 20px;
+    padding: 20px 30px;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    color: inherit;
+    max-width: 100%;
+}
+
+input[type="url"]:hover,
+input[type="url"]:focus {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Options */
+.options {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1rem;
+    color: inherit;
+}
+
+.options label {
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Button */
+button {
+    margin-top: 30px;
+    padding: 14px 30px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #60a5fa, #38bdf8);
+    border: none;
+    border-radius: 16px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Toggle */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    color: var(--text);
+}
+
+.flash-wrapper {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.flash {
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    animation: fadeFlash 0.6s ease, hideFlash 4s forwards;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.flash.success {
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+}
+
+.flash.error {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+@keyframes fadeFlash {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hideFlash {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+    }
+}
+
+/* Preview */
+.yt-preview {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.6s ease;
+}
+
+.yt-preview.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.yt-preview.hidden {
+    display: none;
+}
+
+.yt-preview img {
+    border-radius: 16px;
+    max-width: 100%;
+    max-height: 280px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.yt-preview h2 {
+    font-size: 1rem;
+    color: var(--text);
+    text-align: center;
+    max-width: 90%;
+    font-weight: 500;
+}
+
+/* Progress bar */
+.progress-container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-container.hidden {
+    display: none;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #60a5fa, #38bdf8);
+    animation: progressAnim 2.5s ease forwards;
+}
+
+@keyframes progressAnim {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.errormessage {
+    color: #931421;
+}
