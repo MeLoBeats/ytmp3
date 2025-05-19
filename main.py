@@ -35,6 +35,17 @@ def is_valid_youtube_url(url: str) -> bool:
     )
     return bool(pattern.match(url.strip()))
 
+from flask import send_from_directory
+
+@app.get('/cgu')
+def cgu():
+    return send_from_directory('static', 'cgu.html')
+
+@app.get('/mentions-legales')
+def mentions_legales():
+    return send_from_directory('static', 'ml.html')
+
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
