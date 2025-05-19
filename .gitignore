@@ -1,6 +1,18 @@
+# Dossiers Python à ignorer
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Fichiers spécifiques à VSCode/IDE
+.vscode/
+.idea/
+
+# Environnement virtuel
+venv/
+.venv/
 .env
-.Dockerfile
-.venv
-./__pycache__
-__pycache__
-downloads/*
+
+# Fichiers Docker non persistants
+*.log
+downloads/
