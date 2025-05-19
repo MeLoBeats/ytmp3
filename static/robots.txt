@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://convert.melobeatsz.fr/static/sitemap.xml
+Sitemap: https://convert-tmp.melobeatsz.fr/static/sitemap.xml
