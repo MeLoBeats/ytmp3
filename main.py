@@ -62,6 +62,10 @@ def robots():
 def sitemap():
     return send_from_directory("static", "sitemap.xml")
 
+@app.route("/ads.txt")
+def sitemap():
+    return send_from_directory("static", "ads.txt")
+
 
 @app.route('/convert', methods=['POST'])
 def convert():
