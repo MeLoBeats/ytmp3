@@ -10,5 +10,10 @@ convert.melobeatsz.fr {
         Referrer-Policy "no-referrer"
     }
 
+    log {
+        output stdout
+        level INFO
+    }
+
     tls lamelobeats@gmail.com
 }
