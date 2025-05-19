@@ -50,6 +50,19 @@ def mentions_legales():
 def index():
     return render_template('index.html')
 
+@app.route('/en', methods=['GET'])
+def index_en():
+    return render_template('en.html')
+
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory("static", "robots.txt")
+
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_from_directory("static", "sitemap.xml")
+
+
 @app.route('/convert', methods=['POST'])
 def convert():
     clean_old_files(DOWNLOAD_FOLDER)  # Nettoyage automatique

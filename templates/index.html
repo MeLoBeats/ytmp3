@@ -3,24 +3,65 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Convertisseur YouTube · MeLo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur YouTube MP3/MP4 gratuit - MeLo</title>
+
+    <meta name="description"
+        content="Convertissez gratuitement et rapidement vos vidéos YouTube en MP3 ou MP4 avec l'outil MeLo. Compatible mobile, sans inscription, sécurisé et rapide." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="MeLo" />
+    <meta name="keywords"
+        content="convertisseur YouTube, MP3, MP4, téléchargement vidéo, MeLo, gratuit, YouTube to MP3, YouTube vers MP4" />
+
+    <meta property="og:title" content="Convertisseur YouTube MP3/MP4 gratuit - MeLo" />
+    <meta property="og:description"
+        content="Convertissez vos vidéos YouTube préférées en MP3 ou MP4 gratuitement et facilement avec MeLo." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://convert-tmp.melobeatsz.fr" />
+    <meta property="og:image" content="https://convert-tmp.melobeatsz.fr/static/og-cover.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Convertisseur YouTube MP3/MP4 gratuit - MeLo" />
+    <meta name="twitter:description" content="Téléchargez des vidéos YouTube en MP3 ou MP4 gratuitement avec MeLo." />
+    <meta name="twitter:image" content="https://convert-tmp.melobeatsz.fr/static/og-cover.png" />
+
+    <link rel="canonical" href="https://convert-tmp.melobeatsz.fr" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script defer src="{{ url_for('static', filename='theme.js') }}"></script>
     <script defer src="{{ url_for('static', filename='spotlight.js') }}"></script>
-    <script defer src="{{ url_for('static', filename='interaction.js') }}"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Convertisseur YouTube MP3/MP4 - MeLo",
+    "url": "https://convert-tmp.melobeatsz.fr",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Convertissez vos vidéos YouTube en fichiers MP3 ou MP4 gratuitement avec MeLo.",
+    "author": {
+      "@type": "Person",
+      "name": "MeLo"
+    }
+  }
+  </script>
 </head>
 
 <body class="centered">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <div class="flash-wrapper">
+    <div class="flash-wrapper" role="alert">
         {% for category, message in messages %}
         <div class="flash {{ category }}">{{ message }}</div>
         {% endfor %}
     </div>
     {% endif %}
     {% endwith %}
+
     <div class="theme-toggle" role="button" tabindex="0" aria-label="Changer le thème">
         <i data-lucide="sun" class="icon" id="theme-icon"></i>
     </div>
@@ -40,35 +81,49 @@
     </div>
 
     <main>
-        <h1 class="title">Convertisseur YouTube <span class="subtitle">par MeLo</span></h1>
+        <h1 class="title">Convertisseur YouTube MP3/MP4 <span class="subtitle">Gratuit, rapide et sécurisé - MeLo</span>
+        </h1>
 
-        <form method="post" action="/convert">
+        <section class="seo-text" style="opacity: 0;position: absolute;">
+            <h2>Convertir une vidéo YouTube en MP3 ou MP4 en ligne</h2>
+            <p>Notre convertisseur YouTube vous permet de télécharger facilement vos vidéos préférées en format MP3 pour
+                l'audio ou MP4 pour la vidéo. Aucune inscription requise, rapide et 100% gratuit. Compatible avec
+                ordinateurs, tablettes et smartphones.</p>
+        </section>
+
+        <form method="post" action="/convert" aria-label="Formulaire de conversion YouTube">
             <div id="preview" class="yt-preview hidden">
-                <img id="yt-thumb" src="" alt="Miniature YouTube" />
+                <img id="yt-thumb" src="" alt="Miniature de la vidéo YouTube" loading="lazy" />
                 <h2 id="yt-title"></h2>
             </div>
 
             <input type="url" name="youtube_url" id="youtube_url" placeholder="Collez un lien YouTube ici..." required
-                autocomplete="off">
+                autocomplete="off" aria-label="Champ de saisie de l'URL YouTube">
 
-            <div class="options">
+            <fieldset class="options" style="border: none;">
+                <legend>Choisissez le format :</legend>
                 <label><input type="radio" name="format" value="mp3" checked> MP3</label>
                 <label><input type="radio" name="format" value="mp4"> MP4</label>
-            </div>
+            </fieldset>
 
-            <button type="submit"><i data-lucide="download"></i> Convertir</button>
+            <button type="submit" aria-label="Convertir la vidéo"><i data-lucide="download"></i> Convertir</button>
         </form>
 
-        <div class="progress-container hidden" id="progressBar">
+        <div class="progress-container hidden" id="progressBar" aria-hidden="true">
             <div class="progress-bar"></div>
         </div>
     </main>
+
     <footer class="site-footer">
-        <a href="/cgu" target="_blank">Conditions d'utilisation</a>
-        <span>&middot;</span>
-        <a href="/mentions-legales" target="_blank">Mentions légales</a>
+        <nav aria-label="Liens légaux">
+            <a href="/cgu" target="_blank">Conditions d'utilisation</a>
+            <span>&middot;</span>
+            <a href="/mentions-legales" target="_blank">Mentions légales</a>
+            <span>&middot;</span>
+            <a href="/en" hreflang="en">🌐 English</a>
+        </nav>
     </footer>
-      
+
     <script>lucide.createIcons();</script>
 </body>
 
