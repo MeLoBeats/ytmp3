@@ -63,7 +63,7 @@ def sitemap():
     return send_from_directory("static", "sitemap.xml")
 
 @app.route("/ads.txt")
-def sitemap():
+def ads():
     return send_from_directory("static", "ads.txt")
 
 
