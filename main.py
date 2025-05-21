@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, sen
 from pytubefix import YouTube
 import os
 import uuid
+import subprocess
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -86,8 +87,16 @@ def convert():
 
         if format_type == 'mp3':
             stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
-            temp_file = stream.download(output_path=DOWNLOAD_FOLDER, filename=filename_base + ".mp3")
-            filepath = os.path.splitext(temp_file)[0] + ".mp3"
+            temp_file = stream.download(output_path=DOWNLOAD_FOLDER, filename=filename_base + ".webm")
+            output_file = os.path.join(DOWNLOAD_FOLDER, filename_base + ".mp3")
+
+            command = [
+                'ffmpeg', '-i', temp_file,
+                output_file
+            ]
+            subprocess.run(command)
+            os.remove(temp_file)
+            filepath = output_file
 
 
         else:  # mp4
