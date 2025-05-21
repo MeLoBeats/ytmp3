@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script defer src="{{ url_for('static', filename='interaction.js') }}"></script>
-    <script defer src="{{ url_for('static', filename='spotlight.js') }}"></script>
+        <script defer src="{{ url_for('static', filename='spotlight.js') }}"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1195059493984315"
         crossorigin="anonymous"></script>
@@ -62,6 +62,10 @@
 </head>
 
 <body class="centered">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KCKW68NX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="flash-wrapper" role="alert">
