@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, send_from_directory
 from pytubefix import YouTube
 import os
-import uuid
+import re
+import unicodedata
 import subprocess
 
 app = Flask(__name__)
@@ -36,7 +37,6 @@ def is_valid_youtube_url(url: str) -> bool:
     )
     return bool(pattern.match(url.strip()))
 
-from flask import send_from_directory
 
 @app.get('/cgu')
 def cgu():
@@ -67,6 +67,13 @@ def sitemap():
 def ads():
     return send_from_directory("static", "ads.txt")
 
+def sanitize_filename(name: str) -> str:
+    # Supprime les accents
+    name = unicodedata.normalize('NFKD', name).encode('ASCII', 'ignore').decode('ASCII')
+    # Supprime les caractères invalides Windows
+    name = re.sub(r'[<>:"/\\|?*]', '', name)
+    # Limite à 100 caractères pour éviter les chemins trop longs
+    return name.strip()[:100]
 
 @app.route('/convert', methods=['POST'])
 def convert():
@@ -82,7 +89,8 @@ def convert():
 
     try:
         yt = YouTube(url)
-        filename_base = uuid.uuid4().hex
+        # filename_base = uuid.uuid4().hex
+        filename_base = sanitize_filename(yt.title)
         filepath = None
 
         if format_type == 'mp3':
