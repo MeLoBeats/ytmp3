@@ -42,9 +42,8 @@
         src="https://plausible.io/js/script.file-downloads.outbound-links.js"></script>
 
         <!-- Plausible CE -->
-
-        <script defer data-domain="convert.melobeatsz.fr" src="https://plausible.melobeatsz.fr/js/script.js"></script>
-    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+        <script defer data-domain="convert.melobeatsz.fr" src="https://plausible.melobeatsz.fr/js/script.tagged-events.js"></script>
+        <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
 
     <script type="application/ld+json">
@@ -124,7 +123,7 @@
                 <label><input type="radio" name="format" value="mp4"> MP4</label>
             </fieldset>
 
-            <button type="submit" aria-label="Convertir la vidéo"><i data-lucide="download"></i> Convertir</button>
+            <button type="submit" class="plausible-event-name=convert" aria-label="Convertir la vidéo"><i data-lucide="download"></i> Convertir</button>
         </form>
 
         <div class="progress-container hidden" id="progressBar" aria-hidden="true">
