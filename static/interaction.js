@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             preview.classList.remove("hidden");
             preview.classList.add("visible");
             document.body.classList.remove("centered");
+            plausible('Insert Youtube Link')
 
             try {
                 const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`);
