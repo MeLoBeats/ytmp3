@@ -88,23 +88,64 @@ def convert():
     flash("Téléchargement en cours...", "success")
 
     try:
-        yt = YouTube(url)
-        # filename_base = uuid.uuid4().hex
-        filename_base = sanitize_filename(yt.title)
-        filepath = None
+    yt = YouTube(
+        url,
+        client="WEB",
+        use_po_token=True,
+    )
 
-        if format_type == 'mp3':
-            stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
-            temp_file = stream.download(output_path=DOWNLOAD_FOLDER, filename=filename_base + ".webm")
-            output_file = os.path.join(DOWNLOAD_FOLDER, filename_base + ".mp3")
+    filename_base = sanitize_filename(yt.title)
+    filepath = None
 
-            command = [
-                'ffmpeg', '-i', temp_file,
-                output_file
-            ]
-            subprocess.run(command)
-            os.remove(temp_file)
-            filepath = output_file
+    if format_type == 'mp3':
+        stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
+
+        if stream is None:
+            raise RuntimeError("Aucun flux audio disponible pour cette vidéo.")
+
+        temp_file = stream.download(
+            output_path=DOWNLOAD_FOLDER,
+            filename=filename_base + ".webm",
+        )
+
+        output_file = os.path.join(
+            DOWNLOAD_FOLDER,
+            filename_base + ".mp3",
+        )
+
+        command = [
+            "ffmpeg",
+            "-y",
+            "-i",
+            temp_file,
+            output_file,
+        ]
+
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+        )
+
+        if result.returncode != 0:
+            raise RuntimeError(
+                "La conversion audio avec FFmpeg a échoué : "
+                + result.stderr[-500:]
+            )
+
+        os.remove(temp_file)
+        filepath = output_file
+
+    else:
+        stream = yt.streams.get_highest_resolution()
+
+        if stream is None:
+            raise RuntimeError("Aucun flux vidéo disponible pour cette vidéo.")
+
+        filepath = stream.download(
+            output_path=DOWNLOAD_FOLDER,
+            filename=filename_base + ".mp4",
+        )
 
 
         else:  # mp4
