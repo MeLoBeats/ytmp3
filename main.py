@@ -109,8 +109,7 @@ def convert():
     try:
         yt = YouTube(
             url,
-            client="WEB",
-            use_po_token=True,
+            client="ANDROID_VR",
         )
 
         filename_base = sanitize_filename(yt.title) or "youtube_download"

@@ -1,5 +1,3 @@
-# Dockerfile for MeLo YouTube Converter
-
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -7,13 +5,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /
 
-# FFmpeg : conversion WebM/audio -> MP3
-# Node.js + npm : nécessaires à la génération automatique de PO Token par pytubefix
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ffmpeg \
-        nodejs \
-        npm && \
+    apt-get install -y --no-install-recommends ffmpeg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
